@@ -3,9 +3,6 @@
 # C extensions
 *.so
 
-# VS CODE
-.vscode
-
 # Packages
 *.egg
 *.egg-info
@@ -38,6 +35,18 @@ nosetests.xml
 .project
 .pydevproject
 
+# Virtualenv
 venv
+
+# Database
 app.db
+
+# Logs
 smartlunch.log*
+
+# VS CODE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
