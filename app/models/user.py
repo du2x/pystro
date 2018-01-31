@@ -1,9 +1,6 @@
-from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
-
-Base = declarative_base()
 
 users_roles = db.Table(
     'users_roles',
@@ -41,6 +38,14 @@ class User(db.Model):
     def has_role(self, role):
             return self.roles.filter(
                 users_roles.c.role_id == role.id).count() > 0
+    
+    @classmethod
+    def find_by_id(cls, uid):
+        return cls.query.filter(cls.id==uid)
+
+    @classmethod
+    def find_all(cls):
+        return [user.username for user in cls.query.all()]
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
