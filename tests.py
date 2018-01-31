@@ -35,13 +35,16 @@ class UserModelCase(unittest.TestCase):
         db.session.add(r3)
         db.session.commit()
         
-        
+        u1 = User.find_by_username('john')
+        u2 = User.find_by_username('susan')
         self.assertEqual(u1.roles.all(), [])
         self.assertEqual(u2.roles.all(), [])
 
         u1.add_role(r1)
         u2.add_role(r2)
         u2.add_role(r3)
+        db.session.add(u1)
+        db.session.add(u2)
         db.session.commit()
 
         # John has exactly 1 role?

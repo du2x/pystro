@@ -40,6 +40,7 @@ venv
 
 # Database
 app.db
+smartlunch.db
 
 # Logs
 smartlunch.log*
