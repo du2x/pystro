@@ -33,8 +33,9 @@ class UserModelCase(unittest.TestCase):
         db.session.add(r1)
         db.session.add(r2)
         db.session.add(r3)
-
         db.session.commit()
+        
+        
         self.assertEqual(u1.roles.all(), [])
         self.assertEqual(u2.roles.all(), [])
 
