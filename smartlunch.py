@@ -5,4 +5,3 @@ from app import app, api
 def index():
     return "Hello, World!"
 
-

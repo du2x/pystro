@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import db
+from .. import db
 
 users_roles = db.Table(
     'users_roles',
@@ -36,16 +36,21 @@ class User(db.Model):
             self.roles.append(role)
         
     def has_role(self, role):
-            return self.roles.filter(
-                users_roles.c.role_id == role.id).count() > 0
+        return self.roles.filter(
+            users_roles.c.role_id == role.id).count() > 0
     
+    def serializable(self):
+        return {'id': self.id,
+                'username': self.name,
+                'email': self.email}
+
     @classmethod
     def find_by_id(cls, uid):
         return cls.query.filter(cls.id==uid)
 
     @classmethod
     def find_all(cls):
-        return [user.username for user in cls.query.all()]
+        return [user.serializable() for user in cls.query.all()]
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.username)    

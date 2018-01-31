@@ -4,8 +4,16 @@
 from flask import request, jsonify
 from flask_restful import Resource, reqparse
 from app.models.user import User, Role
-from .. import db
-from .. import api
+from app import db, api
+
+
+nameArg = reqparse.Argument(name='name', type=str, required=True, 
+help='No name provided', location='json')
+emailArg = reqparse.Argument(name='email', type=str, required=True, 
+help='No email provided', location='json')
+pwdArg = reqparse.Argument(name='password', type=str, required=True, 
+help='No password provided', location='json')
+
 
 """
     Defines routes for users listing and user adding.
@@ -14,12 +22,9 @@ class UsersAPI(Resource):
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('name', type = str, required = True,
-            help = 'No name provided', location = 'json')
-        self.reqparse.add_argument('password', type = str, required = True,
-            help = 'No password provided', location = 'json')            
-        self.reqparse.add_argument('email', type = str, required = True,
-            help = 'No email provided', location = 'json')                        
+        self.reqparse.add_argument(nameArg)
+        self.reqparse.add_argument(emailArg)
+        self.reqparse.add_argument(pwdArg)
         super(UsersAPI, self).__init__()
 
     def post(self):
@@ -33,7 +38,7 @@ class UsersAPI(Resource):
     def get(self):
         users = User.find_all()
         if users:
-            return jsonify(users)
+            return users
         else:
             return [], 200
 
@@ -42,7 +47,32 @@ class UsersAPI(Resource):
     Defines routes for user editing and user viewing.
 """
 class UserAPI(Resource):
-    pass
+
+    def __init__(self):
+        self.reqparse = reqparse.RequestParser()
+        self.reqparse.add_argument(nameArg)
+        self.reqparse.add_argument(emailArg)
+        super(UserAPI, self).__init__()
+
+    def get(self, id):
+        user = User.find_by_id(id)
+        if not user:
+            return "User not found", 404
+        else:
+            return user.serializable(), 200
+
+
+    def put(self, id):
+        user = User.find_by_id(id)
+        data = request.get_json()        
+        if not user:
+            return "User not found", 404
+        else:
+            user.username = data['username']
+            user.email = data['email']
+            db.session.add(user)
+            db.session.commit()
+            # todo: roles
 
 api.add_resource(UsersAPI, '/users', endpoint='users')
 api.add_resource(UserAPI, '/user/<int:id>', endpoint='user')
