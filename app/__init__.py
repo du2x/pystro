@@ -5,7 +5,6 @@ from flask_migrate import Migrate
 
 from app.config import Config
 
-
 app = Flask(__name__)
 app.config.from_object(Config)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)

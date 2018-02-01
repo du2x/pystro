@@ -5,7 +5,7 @@ from flask import request, jsonify
 from flask_restful import Resource, reqparse
 from app.models.user import User, Role
 from app import db, api
-
+from auth import hasrole
 
 nameArg = reqparse.Argument(name='name', type=str, required=True, 
 help='No name provided', location='json')
@@ -19,6 +19,8 @@ help='No password provided', location='json')
     Defines routes for users listing and user adding.
 """
 class UsersAPI(Resource):
+
+    decorators = [hasrole('Client')]
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()

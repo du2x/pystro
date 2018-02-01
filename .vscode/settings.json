@@ -13,6 +13,7 @@
         "**/__pycache__": true,
         "venv": true,
         ".noseids": true,
-        "**/*.db":true
+        "**/*.db":true,
+        "**/*.pyc":true
     }
 }

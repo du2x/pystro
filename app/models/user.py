@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from .. import db
+from app import db
 
 users_roles = db.Table(
     'users_roles',
@@ -41,7 +41,7 @@ class User(db.Model):
     
     def serializable(self):
         return {'id': self.id,
-                'username': self.name,
+                'username': self.username,
                 'email': self.email}
 
     @classmethod
