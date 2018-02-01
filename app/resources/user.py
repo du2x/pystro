@@ -3,6 +3,8 @@
 """
 from flask import request, jsonify
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
+
 from app.models.user import User, Role
 from app import db, api
 from app.auth import hasrole
@@ -21,7 +23,7 @@ help='No password provided', location='json')
 """
 class UsersAPI(Resource):
 
-    decorators = [hasrole('Client')]
+    decorators = [jwt_required()]
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()

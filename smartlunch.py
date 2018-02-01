@@ -1,7 +1,8 @@
 from app import app, api
+from flask_jwt import jwt_required
+
 
 @app.route('/')
-@app.route('/index')
+@jwt_required()
 def index():
     return "Hello, World!"
-
