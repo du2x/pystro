@@ -9,11 +9,6 @@ class UserModelCase(unittest.TestCase):
     def setUp(self):
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         db.create_all()
-        u1 = User(username='john', email='john@example.com')
-        u2 = User(username='susan', email='susan@example.com')
-        db.session.add(u1)
-        db.session.add(u2)
-        db.session.commit()
 
     def tearDown(self):
         db.session.remove()
@@ -25,19 +20,16 @@ class UserModelCase(unittest.TestCase):
         self.assertFalse(u.check_password('dog'))
         self.assertTrue(u.check_password('cat'))
 
-    def test_find_user_by_username(self):
-        db.session.commit()
-        john = User.find_by_username('john')
-        self.assertEqual(john.email, 'john@example.com')
-        susan = User.find_by_username('susan')
-        self.assertEqual(susan.email, 'susan@example.com')
-
     def test_roles(self):
+        u1 = User(username='john', email='john@example.com')
+        u2 = User(username='susan', email='susan@example.com')
 
         r1 = Role(name='Admin')
         r2 = Role(name='Operator')
         r3 = Role(name='Client')
 
+        db.session.add(u1)
+        db.session.add(u2)
         db.session.add(r1)
         db.session.add(r2)
         db.session.add(r3)
@@ -49,14 +41,12 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(u2.roles.all(), [])
 
         u1.add_role(r1)
-        u2.add_role(r2)
+        u2.add_role(r2)Us
         u2.add_role(r3)
         db.session.add(u1)
         db.session.add(u2)
         db.session.commit()
 
-        u1 = User.find_by_username('john')
-        u2 = User.find_by_username('susan')
         # John has exactly 1 role?
         self.assertEqual(u1.roles.count(), 1) 
         # John has the 'Admin' role?

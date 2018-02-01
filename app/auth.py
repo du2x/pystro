@@ -2,9 +2,8 @@
 This module implements authentication and authorization features
 """
 from flask import abort
-from flask_jwt import JWT, jwt_required, current_identity
+from flask_jwt import jwt_required, current_identity
 from app.models.user import User
-from app import app
 from functools import wraps
 
 def authenticate(username, password):
@@ -25,4 +24,3 @@ def hasrole(argument):
         return wrapper
     return real_decorator
 
-JWT(app, authenticate, identity)
