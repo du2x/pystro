@@ -1,14 +1,22 @@
+import os
+
 from datetime import datetime, timedelta
 import unittest
-from app import app, db
-from app.models.user import User, Role
+from sqlalchemy.pool import StaticPool
+from sqlalchemy import create_engine
 
+from flask_sqlalchemy import SQLAlchemy
+
+from app import create_app
+from app.models.user import User, Role 
+
+app, db = create_app()
+db.create_all()
 
 class UserModelCase(unittest.TestCase):
 
-    def setUp(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
-        db.create_all()
+    def setUp(self):                
+        pass
 
     def tearDown(self):
         db.session.remove()
@@ -41,7 +49,7 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(u2.roles.all(), [])
 
         u1.add_role(r1)
-        u2.add_role(r2)Us
+        u2.add_role(r2)
         u2.add_role(r3)
         db.session.add(u1)
         db.session.add(u2)

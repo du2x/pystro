@@ -2,7 +2,7 @@
     "python.pythonPath": "${workspaceFolder}/venv/bin/python",
     "python.venvPath": "{workspaceFolder}/venv/bin/python",
     "python.linting.pylamaPath": "{workspaceFolder}/venv/lib/python3.6/site-packages/pylama",
-    "python.linting.pylamaEnabled": true,
+    "python.linting.pylamaEnabled": false,
     "python.unitTest.nosetestsEnabled": true,
     "files.exclude": {
         "**/.git": true,

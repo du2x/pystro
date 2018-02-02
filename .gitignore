@@ -39,8 +39,7 @@ nosetests.xml
 venv
 
 # Database
-app.db
-smartlunch.db
+*.db
 
 # Logs
 smartlunch.log*

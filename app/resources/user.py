@@ -6,7 +6,7 @@ from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
 from app.models.user import User, Role
-from app import db, api
+from app.models import db
 from app.auth import hasrole
 
 
@@ -78,6 +78,3 @@ class UserAPI(Resource):
             db.session.add(user)
             db.session.commit()
             # todo: roles
-
-api.add_resource(UsersAPI, '/users', endpoint='users')
-api.add_resource(UserAPI, '/user/<int:id>', endpoint='user')
