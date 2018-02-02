@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.models import db
+from application.database import db
 
 users_roles = db.Table(
     'users_roles',

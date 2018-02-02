@@ -1,26 +1,32 @@
 import os
-
 from datetime import datetime, timedelta
 import unittest
+
 from sqlalchemy.pool import StaticPool
 from sqlalchemy import create_engine
-
 from flask_sqlalchemy import SQLAlchemy
+from flask_testing import TestCase
 
-from app import create_app
-from app.models.user import User, Role 
+from application.models.user import User, Role 
+from application import create_app
 
-app, db = create_app()
-db.create_all()
 
-class UserModelCase(unittest.TestCase):
+class UserModelCase(TestCase):
 
-    def setUp(self):                
-        pass
+    TESTING = True
+
+    def create_app(self):
+        # pass in test configuration
+        app, db = create_app()
+        self.db = db    
+        return app
+
+    def setUp(self):
+        self.db.create_all()
 
     def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+        self.db.session.remove()
+        self.db.drop_all()
 
     def test_password_hashing(self):
         u = User(username='susan')
@@ -36,12 +42,12 @@ class UserModelCase(unittest.TestCase):
         r2 = Role(name='Operator')
         r3 = Role(name='Client')
 
-        db.session.add(u1)
-        db.session.add(u2)
-        db.session.add(r1)
-        db.session.add(r2)
-        db.session.add(r3)
-        db.session.commit()
+        self.db.session.add(u1)
+        self.db.session.add(u2)
+        self.db.session.add(r1)
+        self.db.session.add(r2)
+        self.db.session.add(r3)
+        self.db.session.commit()
         
         u1 = User.find_by_username('john')
         u2 = User.find_by_username('susan')
@@ -51,9 +57,9 @@ class UserModelCase(unittest.TestCase):
         u1.add_role(r1)
         u2.add_role(r2)
         u2.add_role(r3)
-        db.session.add(u1)
-        db.session.add(u2)
-        db.session.commit()
+        self.db.session.add(u1)
+        self.db.session.add(u2)
+        self.db.session.commit()
 
         # John has exactly 1 role?
         self.assertEqual(u1.roles.count(), 1) 

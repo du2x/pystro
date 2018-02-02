@@ -4,6 +4,7 @@ flask-migrate
 flask-restful
 flask-jwt-extended
 flask-jwt
+flask-testing
 
 pylint
 pylama

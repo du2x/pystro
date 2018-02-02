@@ -3,7 +3,7 @@ This module implements authentication and authorization features
 """
 from flask import abort
 from flask_jwt import jwt_required, current_identity
-from app.models.user import User
+from application.models.user import User
 from functools import wraps
 
 def authenticate(username, password):
