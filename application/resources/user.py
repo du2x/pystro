@@ -23,8 +23,7 @@ help='No password provided', location='json')
 """
 class UsersAPI(Resource):
 
-    decorators = [jwt_required()]
-
+    
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument(nameArg)
@@ -40,10 +39,11 @@ class UsersAPI(Resource):
         db.session.commit()
         return "User " + user.username + " has been saved", 201
 
+    @jwt_required()
     def get(self):
         users = User.find_all()
         if users:
-            return users
+            return users, 200
         else:
             return [], 200
 
@@ -68,13 +68,15 @@ class UserAPI(Resource):
 
 
     def put(self, id):
-        user = User.find_by_id(id)
-        data = request.get_json()        
+        user = User.find_by_id(id)        
         if not user:
             return "User not found", 404
         else:
+            data = request.get_json()        
+            self.reqparse.parse_args()
             user.username = data['username']
             user.email = data['email']
             db.session.add(user)
             db.session.commit()
+            return user, 200
             # todo: roles
