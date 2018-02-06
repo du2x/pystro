@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from application.auth import authenticate, identity
 from application.database import db
-from application.resources.user import UserAPI, UsersAPI
+from application.api.user import UserAPI, UsersAPI
 from application.config import defaultconfig
 
 def set_api_routes(api):
