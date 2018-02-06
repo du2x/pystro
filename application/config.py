@@ -17,17 +17,18 @@ class DevelopmentConfig(Config):
        'sqlite:///' + os.path.join(basedir, 'smartlunch_dev.db')
 
 
-
 class TestConfig(Config):
     # ...    
-    DEBUG = True
+    TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///'
 
 
+class HerokuConfig(object):
+    # ...
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')    
 
 class ProductionConfig(object):
     # ...
     JWT_SECRET_KEY = 'super-really-secret'
-    DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')    
 
