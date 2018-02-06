@@ -10,7 +10,7 @@
         "**/.DS_Store": true,
         "**/__pycache__": true,
         "venv": true,
-        ".noseids": true,
+        "tests/.noseids": true,
         "**/*.db":true,
         "**/*.pyc":true
     }

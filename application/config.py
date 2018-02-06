@@ -1,7 +1,6 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -32,3 +31,5 @@ class ProductionConfig(object):
     JWT_SECRET_KEY = 'super-really-secret'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')    
 
+
+defaultconfig = DevelopmentConfig

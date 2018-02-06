@@ -13,9 +13,11 @@ def authenticate(username, password):
 
 def identity(payload):
     user_id = payload['identity']
-    return User.find_by_id(user_id)
+    user = User.find_by_id(user_id)
+    user.load_roles()
+    return user
 
-def hasrole(argument):
+def has_role(argument):
     def real_decorator(function):
         def wrapper(*args, **kwargs):
             if argument in current_identity.roles: 
