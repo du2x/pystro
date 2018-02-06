@@ -7,10 +7,10 @@ from flask_jwt import jwt_required
 
 from application.models.user import User, Role
 from application.database import db
-from application.auth import hasrole
+from application.auth import has_role
 
 
-nameArg = reqparse.Argument(name='name', type=str, required=True, 
+usernameArg = reqparse.Argument(name='username', type=str, required=True, 
 help='No name provided', location='json')
 emailArg = reqparse.Argument(name='email', type=str, required=True, 
 help='No email provided', location='json')
@@ -26,13 +26,13 @@ class UsersAPI(Resource):
     
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument(nameArg)
+        self.reqparse.add_argument(usernameArg)
         self.reqparse.add_argument(emailArg)
         self.reqparse.add_argument(pwdArg)
         super(UsersAPI, self).__init__()
 
-    def post(self):
-        data = request.get_json()
+    def post(self):        
+        data = self.reqparse.parse_args()
         user = User(username=data['username'])
         user.set_password(data['password'])
         db.session.add(user)
@@ -55,7 +55,7 @@ class UserAPI(Resource):
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument(nameArg)
+        self.reqparse.add_argument(usernameArg)
         self.reqparse.add_argument(emailArg)
         super(UserAPI, self).__init__()
 
@@ -72,8 +72,7 @@ class UserAPI(Resource):
         if not user:
             return "User not found", 404
         else:
-            data = request.get_json()        
-            self.reqparse.parse_args()
+            data = self.reqparse.parse_args()            
             user.username = data['username']
             user.email = data['email']
             db.session.add(user)

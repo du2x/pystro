@@ -4,6 +4,7 @@ import unittest
 
 from sqlalchemy.pool import StaticPool
 from sqlalchemy import create_engine
+from flask import json
 from flask_sqlalchemy import SQLAlchemy
 from flask_testing import TestCase
 
@@ -14,19 +15,24 @@ from application import create_app
 class UserModelCase(TestCase):
 
     TESTING = True
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
 
     def create_app(self):
         # pass in test configuration
-        app, db = create_app()
-        self.db = db    
+        app, db = create_app()        
+        self.db = db
         return app
 
-    def setUp(self):
+    def setUp(self):        
+        self.app_context = self.app.app_context()   
+        self.app_context.push()            
         self.db.create_all()
 
     def tearDown(self):
         self.db.session.remove()
         self.db.drop_all()
+        self.app_context.pop()
+
 
     def test_password_hashing(self):
         u = User(username='susan')
@@ -36,7 +42,9 @@ class UserModelCase(TestCase):
 
     def test_roles(self):
         u1 = User(username='john', email='john@example.com')
+        u1.set_password('123')
         u2 = User(username='susan', email='susan@example.com')
+        u2.set_password('123')
 
         r1 = Role(name='Admin')
         r2 = Role(name='Operator')
@@ -68,8 +76,7 @@ class UserModelCase(TestCase):
         # Susan has exactly 2 roles?
         self.assertEqual(u2.roles.count(), 2) 
         # Susan has the role 'Client'?
-        self.assertTrue(u2.has_role(r3)) 
-        
+        self.assertTrue(u2.has_role(r3))
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)        
