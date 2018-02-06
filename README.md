@@ -1,7 +1,7 @@
 Smartlunch
 ========
 
-Smartlunch is a **simple** and easy to use and to extend restaurant api and webapp. 
+Smartlunch is a **simple** and easy to use and to extend restaurant api and webapp, designed specially for small restaurants that serves **lunch** - there are (will be) two function that stands out in this context: Subscription and pre-ordering a lunch plate (for customers in a hurry). 
 
 It is written in Flask, following the best practices, taking @miguelgrinberg as one of the main references. 
 
