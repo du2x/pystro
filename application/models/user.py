@@ -27,14 +27,14 @@ class User(db.Model):
 
     @classmethod
     def find_by_id(cls, uid):
-        result = cls.query.filter(cls.id==uid)
+        result = cls.query.filter(cls.id == uid)
         if result.count() == 1:
             return result.first()
         return None
 
     @classmethod
     def find_by_username(cls, username):
-        result = cls.query.filter(cls.username==username)
+        result = cls.query.filter(cls.username == username)
         if result.count() == 1:
             return result.first()
         return None
@@ -44,4 +44,4 @@ class User(db.Model):
         return [user.serializable() for user in cls.query.all()]
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)    
+        return '<User {} ({})>'.format(self.username, self.email)
