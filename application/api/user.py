@@ -1,29 +1,31 @@
 """
     Defines APIs for user handling.
 """
-from flask import request, jsonify
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
-from application.models.user import User, Role
+from application.models.user import User
 from application.database import db
-from application.auth import has_role
+
+usernameArg = reqparse.Argument(name='username', type=str,
+                                required=True,
+                                help='No name provided',
+                                location='json')
+emailArg = reqparse.Argument(name='email', type=str,
+                             required=True,
+                             help='No email provided',
+                             location='json')
+pwdArg = reqparse.Argument(name='password', type=str,
+                           required=True,
+                           help='No password provided',
+                           location='json')
 
 
-usernameArg = reqparse.Argument(name='username', type=str, required=True, 
-help='No name provided', location='json')
-emailArg = reqparse.Argument(name='email', type=str, required=True, 
-help='No email provided', location='json')
-pwdArg = reqparse.Argument(name='password', type=str, required=True, 
-help='No password provided', location='json')
-
-
-"""
-    Defines routes for users listing and user adding.
-"""
 class UsersAPI(Resource):
+    """
+    Defines routes for users listing and user adding.
+    """
 
-    
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument(usernameArg)
@@ -48,10 +50,10 @@ class UsersAPI(Resource):
             return [], 200
 
 
-"""
-    Defines routes for user editing and user viewing.
-"""
 class UserAPI(Resource):
+    """
+    Defines routes for user editing and user viewing.
+    """
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
@@ -65,7 +67,6 @@ class UserAPI(Resource):
             return "User not found", 404
         else:
             return user.serializable(), 200
-
 
     def put(self, id):
         user = User.find_by_id(id)        

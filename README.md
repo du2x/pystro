@@ -3,7 +3,7 @@ Smartlunch
 
 Smartlunch is a **simple** and easy to use and to extend restaurant api and webapp, designed specially for small restaurants that serves **lunch** - there are (will be) two function that stands out in this context: Subscription and pre-ordering a lunch plate (for customers in a hurry). 
 
-It is written in Flask, following the best practices, taking @miguelgrinberg as one of the main references. 
+It is written in Flask, following the principles SOLID, KISS, YAGNI, DRY and Flask specific the best practices, taking @miguelgrinberg as one of the main references. We also follow pep8 style guide.
 
 
 Brief Api Description
@@ -11,7 +11,7 @@ Brief Api Description
 
 The api has three main modules:
 - Users management and authentication.
-    - Models: User, Role.
+    - Models: User.
 - Menu management.
     - Models: Item, Special.
 - Orders management.

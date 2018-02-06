@@ -1,7 +1,6 @@
 {
     "python.pythonPath": "${workspaceFolder}/venv/bin/python",
     "python.venvPath": "${workspaceFolder}/venv/bin/python",
-    "python.unitTest.nosetestsEnabled": true,
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -13,5 +12,7 @@
         "tests/.noseids": true,
         "**/*.db":true,
         "**/*.pyc":true
-    }
+    },
+    "python.unitTest.pyTestEnabled": true,
+    "python.linting.flake8Enabled": true
 }
