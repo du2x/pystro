@@ -1,14 +1,8 @@
-import os
-from datetime import datetime, timedelta
 import unittest
 
-from sqlalchemy.pool import StaticPool
-from sqlalchemy import create_engine
 from flask import json
-from flask_sqlalchemy import SQLAlchemy
 from flask_testing import TestCase
 
-from application.models.user import User, Role 
 from application import create_app
 
 
