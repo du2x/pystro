@@ -1,9 +1,9 @@
 Smartlunch
 ========
 
-Smartlunch is a **simple** and easy to use and to extend restaurant api and webapp, designed specially for small restaurants that serves **lunch** - there are (will be) two function that stands out in this context: Subscription and requesting for lunch plate preparation before arriving (for customers in a hurry). 
+Smartlunch is a **simple** and easy to use and to extend restaurant api and webapp, designed specially for small restaurants that serves **lunch** - there are (will be) two function that stands out in this context: Subscription and requesting for lunch plate preparation before arriving (for customers in a hurry).
 
-It is written in Flask, following the principles SOLID, KISS, YAGNI, DRY and Flask specific the best practices, taking @miguelgrinberg as one of the main references. We also follow pep8 style guide.
+It is written in Flask, following the principles SOLID, KISS, YAGNI, DRY and Flask specific best practices, taking @miguelgrinberg as one of the main references. We also follow pep8 style guide.
 
 Running it
 --------
@@ -11,15 +11,22 @@ Running it
 Smartlunch runs with python3 (and *possibly* with python2)
 
 create virtualenv.
+
 `virtualenv -p python3 venv`
 
+
 activate virtualenv
+
 `source venv/bin/activate.sh`
 
+
 export FLASK_APP (this is made automatically if you have `autoenv`)
+
 `export FLASK_APP=smartlunch.py`
 
+
 run it
+
 `flask run`
 
 Brief Api Description
