@@ -3,9 +3,9 @@ Smartlunch
 
 [![Join the chat at https://gitter.im/du2x/smartlunch](https://badges.gitter.im/du2x/smartlunch.svg)](https://gitter.im/du2x/smartlunch?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Smartlunch is a **simple** and easy to use and to extend restaurant api and webapp, designed specially for small restaurants that serves **lunch** - there are (will be) two function that stands out in this context: Subscription and requesting for lunch plate preparation before arriving (for customers in a hurry).
+Smartlunch is a **simple** and easy to use and to extend restaurant api and webapp, designed specially for small restaurants that serves **lunch** - there are (will be) two functions that stands out in this context: Subscription and requesting for lunch plate preparation before arriving (for customers in a hurry).
 
-It is written in Flask, following the principles SOLID, KISS, YAGNI, DRY and Flask specific best practices, taking @miguelgrinberg as one of the main references. We also follow pep8 style guide.
+It is written in Flask, following the principles SOLID, KISS, YAGNI, DRY and Flask specific best practices, taking [miguelgrinberg](https://github.com/miguelgrinberg) as one of the main references. We also follow pep8 style guide.
 
 Running it
 --------
