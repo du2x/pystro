@@ -13,7 +13,6 @@ class Config(object):
 class DevelopmentConfig(Config):
     # ...
     DEBUG = True
-    JWT_SECRET_KEY = 'super-secret'    
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
        'sqlite:///' + os.path.join(basedir, 'smartlunch_dev.db')
 
