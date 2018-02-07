@@ -49,4 +49,8 @@ The webapp will be a **simple** website, with an administration panel and a fron
 
 There will be also an android client which will consume the Smartlunch api, but these will be on other github repo.
 
+We are open!
+-----
+**Smartlunch** will be always open source, licensed under GPL3.
+
 Feel free to contribute!
