@@ -17,7 +17,7 @@ The api has three main modules:
 - Orders management.
     - Models: Order.
 - Subscription.
-    - Models: Subscription.
+    - Models: Subscription, Payment, CreditCard.
 
 
 Brief Web app description
