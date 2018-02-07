@@ -28,17 +28,17 @@ class UserModelCase(TestCase):
         self.app_context.pop()
 
     def test_password_hashing(self):
-        u = User(username='susan')
+        u = User(email='susan@gmail.com')
         u.set_password('cat')
         self.assertFalse(u.check_password('dog'))
         self.assertTrue(u.check_password('cat'))
 
     def test_users_inserts(self):
-        u1 = User(username='john', email='john@example.com')
+        u1 = User(email='john@example.com')
         u1.set_password('123')
-        u2 = User(username='susan', email='susan@example.com')
+        u2 = User(email='susan@example.com')
         u2.set_password('123')
-        u3 = User(username='john', email='greatjohn@example.com')
+        u3 = User(email='john@example.com')
         u3.set_password('123')        
 
         self.db.session.add(u1)
@@ -51,8 +51,8 @@ class UserModelCase(TestCase):
 
     def test_users_find(self):
         self.test_users_inserts()
-        u1 = User.find_by_username('john')
-        u2 = User.find_by_username('susan')
+        u1 = User.find_by_email('john@example.com')
+        u2 = User.find_by_email('susan@example.com')
         self.assertEquals(u1.email, 'john@example.com')
         self.assertEquals(u2.email, 'susan@example.com')
 

@@ -1,6 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -12,6 +13,7 @@ class Config(object):
 class DevelopmentConfig(Config):
     # ...
     DEBUG = True
+    JWT_SECRET_KEY = 'super-secret'    
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
        'sqlite:///' + os.path.join(basedir, 'smartlunch_dev.db')
 
@@ -24,12 +26,13 @@ class TestConfig(Config):
 
 class HerokuConfig(object):
     # ...
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')    
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+
 
 class ProductionConfig(object):
     # ...
     JWT_SECRET_KEY = 'super-really-secret'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')    
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 
 
 defaultconfig = DevelopmentConfig

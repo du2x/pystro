@@ -9,9 +9,10 @@
         "**/.DS_Store": true,
         "**/__pycache__": true,
         "venv": true,
-        "tests/.noseids": true,
+        "**/.noseids": true,
         "**/*.db":true,
-        "**/*.pyc":true
+        "**/*.pyc":true,
+        ".pytest_cache":true
     },
     "python.unitTest.pyTestEnabled": true,
     "python.linting.flake8Enabled": true

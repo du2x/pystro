@@ -26,40 +26,44 @@ class UserModelCase(TestCase):
     def test_users_post(self):
         self.assertEquals(
             self.client.post('/users', data=json.dumps(dict(
-                email='john@gmail.com',
-                username='john',
+                email='joe@gmail.com',
                 password='123')),
                 content_type='application/json'
             ).status_code,
             201)
         self.assertEquals(
             self.client.post('/users', data=json.dumps(dict(
-                username='suan',
+                email='susan@gmail.com',
+                password='123')),
+                content_type='application/json'
+            ).status_code,
+            201)            
+        self.assertEquals(
+            self.client.post('/users', data=json.dumps(dict(
                 password='123')),
                 content_type='application/json'
             ).status_code,
             400)  # email is required
         self.assertEquals(
             self.client.post('/users', data=json.dumps(dict(
-                email='greatjohn@gmail.com',
-                username='john',
+                email='joe@gmail.com',
                 password='4321')),
                 content_type='application/json'
             ).status_code,
-            400)  # username is unique
+            400)  # email has to be unique
 
     def test_authentication(self):
         self.test_users_post()
         self.assertEquals(
             self.client.post('/auth', data=json.dumps(dict(
-                username='john',
+                username='joe@gmail.com',
                 password='123')),
                 content_type='application/json'
             ).status_code,
             200)
         self.assertEquals(
             self.client.post('/auth', data=json.dumps(dict(
-                username='susan',
+                username='susan@gmail.com',
                 password='321')),  # wrong password!
                 content_type='application/json'
             ).status_code,

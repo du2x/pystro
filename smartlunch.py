@@ -1,4 +1,5 @@
 from application import create_app
+from flask_migrate import Migrate
 
 app, db = create_app()
-app.run()
+migrate = Migrate(app, db)
