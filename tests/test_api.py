@@ -27,7 +27,8 @@ class UserModelCase(TestCase):
         self.assertEquals(
             self.client.post('/users', data=json.dumps(dict(
                 email='joe@gmail.com',
-                password='123')),
+                password='123',
+                is_manager=True)),
                 content_type='application/json'
             ).status_code,
             201)
@@ -55,9 +56,10 @@ class UserModelCase(TestCase):
     def test_authentication(self):
         self.test_users_post()
         self.assertEquals(
-            self.client.post('/auth', data=json.dumps(dict(
-                username='joe@gmail.com',
-                password='123')),
+            self.client.post('/auth', 
+                data=json.dumps(dict(
+                    username='joe@gmail.com',
+                    password='123')),
                 content_type='application/json'
             ).status_code,
             200)
@@ -68,7 +70,37 @@ class UserModelCase(TestCase):
                 content_type='application/json'
             ).status_code,
             401)
-
+    
+    def test_role_required_endpoint(self):
+        self.test_users_post()        
+        data = json.loads(
+            self.client.post('/auth', 
+            data=json.dumps(dict(
+                username='joe@gmail.com',
+                password='123')
+                ),
+            content_type='application/json')
+            .data)
+        token = data['access_token']
+        self.assertEquals(
+            self.client.get('/users', 
+                headers={'Authorization':'JWT ' + token}).status_code, 
+                200)  # joe is manager
+        data = json.loads(
+            self.client.post('/auth', 
+            data=json.dumps(dict(
+                username='susan@gmail.com',
+                password='123')
+                ),
+            content_type='application/json')
+            .data)
+        token = data['access_token']
+        self.assertEquals(
+            self.client.get('/users', 
+                headers={'Authorization':'JWT ' + token}).status_code, 
+                403)  # susan is not manager
+        
+        
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

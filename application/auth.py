@@ -1,6 +1,8 @@
 """
 This module implements authentication and authorization features
 """
+from functools import wraps
+
 from flask import abort
 from flask_jwt import current_identity
 from application.models.user import User
@@ -18,16 +20,24 @@ def identity(payload):
     return user
 
 
-def is_admin(function):
+def only_admin(function):
     def wrapper(*args, **kwargs):
         if current_identity.is_admin:
             return function(*args, **kwargs)
-        return abort(401)
+        return abort(403)
 
 
-def is_manager(function):
-    def wrapper(*args, **kwargs):
-        if current_identity.is_admin or current_identity.is_manager:
-            return function(*args, **kwargs)
-        return abort(401)
+def only_manager(realm=None):
+    def wrapper(fn):
+        @wraps(fn)
+        def decorator(*args, **kwargs):
+            if current_identity.is_admin or current_identity.is_manager:
+                return fn(*args, **kwargs)
+            return abort(403)            
+        return decorator
+    return wrapper
+    
+
+
+        
 

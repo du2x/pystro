@@ -8,6 +8,8 @@ from sqlalchemy.exc import IntegrityError
 
 from application.models.user import User
 from application.database import db
+from application.auth import only_manager, only_admin
+
 
 emailArg = reqparse.Argument(name='email', type=str,
                              required=True,
@@ -16,6 +18,10 @@ emailArg = reqparse.Argument(name='email', type=str,
 pwdArg = reqparse.Argument(name='password', type=str,
                            required=True,
                            help='No password provided',
+                           location='json')
+mngArg = reqparse.Argument(name='is_manager', type=bool,
+                           required=False,
+                           help='If user is manager',
                            location='json')
 
 
@@ -28,12 +34,13 @@ class UsersAPI(Resource):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument(emailArg)
         self.reqparse.add_argument(pwdArg)
+        self.reqparse.add_argument(mngArg)        
         super(UsersAPI, self).__init__()
 
     def post(self):        
         data = self.reqparse.parse_args()  
         try:
-            user = User(email=data['email'])
+            user = User(email=data['email'], is_manager=data['is_manager'])
             user.set_password(data['password'])        
             db.session.add(user)
             db.session.commit()
@@ -43,6 +50,7 @@ class UsersAPI(Resource):
         return "User " + user.email + " has been saved", 201
 
     @jwt_required()
+    @only_manager()    
     def get(self):
         users = User.find_all()
         if users:

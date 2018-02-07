@@ -1,5 +1,7 @@
 from application import create_app
-from flask_migrate import Migrate
+from flask_jwt import jwt_required
+
+
 
 app, db = create_app()
-migrate = Migrate(app, db)
+app.run()
