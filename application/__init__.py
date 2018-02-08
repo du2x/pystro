@@ -7,12 +7,15 @@ from flask_jwt import JWT
 from application.auth import authenticate, identity
 from application.database import db
 from application.api.user import UserAPI, UsersAPI
+from application.api.menu import ItemsAPI, ItemAPI
 from application.config import defaultconfig
 
 
 def set_api_routes(api):
     api.add_resource(UsersAPI, '/users', endpoint='users')
     api.add_resource(UserAPI, '/user/<int:id>', endpoint='user')
+    api.add_resource(ItemsAPI, '/items', endpoint='items')
+    api.add_resource(ItemAPI, '/item/<int:id>', endpoint='item')
 
 
 def create_app():

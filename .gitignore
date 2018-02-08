@@ -46,3 +46,6 @@ venv
 smartlunch.log*
 
 .noseids
+
+
+pylintrc

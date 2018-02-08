@@ -4,7 +4,7 @@ This module implements authentication and authorization features
 from functools import wraps
 
 from flask import abort
-from flask_jwt import current_identity
+from flask_jwt import current_identity, _jwt_required, jwt_required
 from application.models.user import User
 
 
@@ -20,24 +20,28 @@ def identity(payload):
     return user
 
 
-def only_admin(function):
-    def wrapper(*args, **kwargs):
-        if current_identity.is_admin:
-            return function(*args, **kwargs)
-        return abort(403)
+authenticated_user = jwt_required
 
 
-def only_manager(realm=None):
+def only_admin():
     def wrapper(fn):
         @wraps(fn)
         def decorator(*args, **kwargs):
-            if current_identity.is_admin or current_identity.is_manager:
+            _jwt_required(None)
+            if current_identity.is_admin:
                 return fn(*args, **kwargs)
-            return abort(403)            
+            return abort(403)
         return decorator
     return wrapper
-    
 
 
-        
-
+def only_manager():
+    def wrapper(fn):
+        @wraps(fn)
+        def decorator(*args, **kwargs):
+            _jwt_required(None)
+            if current_identity.is_admin or current_identity.is_manager:
+                return fn(*args, **kwargs)
+            return abort(403)
+        return decorator
+    return wrapper
