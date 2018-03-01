@@ -1,0 +1,9 @@
+-r common.txt
+httpie
+faker
+pygments
+requests
+selenium
+
+pylint
+nose
