@@ -16,6 +16,7 @@ pystro uses SQLAlchemy as ORM framework. The models of pystro are those on the f
 
 ![models class diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/du2x/pystro/master/docs/models_cd.txt)
 
+pystro also uses Flask-Restful extension for better api design and creates a Flask Blueprint for each restaurant unit added on database, and registers the proper resources for them.
 
 Usage
 --------
