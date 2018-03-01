@@ -1,0 +1,20 @@
+@startuml
+
+title Models - Class Diagram
+
+
+class Order 
+class Item
+class Section
+class User
+class Restaurant
+
+User "many" *-up-* "many" Restaurant: manages
+User "1" -up-* "many" Order: does
+Order "1" -up-* "many" Item: has
+Order "many" *-up- "1" Restaurant: has
+Section "1" -up-* "many" Item: Composition
+
+
+@enduml
+
