@@ -1,4 +1,5 @@
 @startuml
+!pragma revision 89
 
 title Models - Class Diagram
 
@@ -11,7 +12,7 @@ class Restaurant
 
 User "many" *-up-* "many" Restaurant: manages
 User "1" -up-* "many" Order: does
-Order "1" -up-* "many" Item: has
+Order "many" -up-* "many" Item: has
 Order "many" *-up- "1" Restaurant: has
 Section "0..1" -up-* "many" Item: has
 Section "many" *-up- "1" Restaurant: has
