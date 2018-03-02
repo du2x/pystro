@@ -18,7 +18,7 @@ from application.restaurants import register_restaurants_blueprints
 
 
 def create_app(pconfig=None, debug=False):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='client')
     app.debug = debug
     configobj = pconfig or \
         os.environ.get('PYSTRO_SETTINGS') or \

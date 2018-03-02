@@ -1,4 +1,5 @@
 """ boots up pystro app """
+from flask import render_template
 from flask_migrate import Migrate, upgrade
 
 from application import create_app
@@ -10,6 +11,11 @@ from application.models.restaurant import Restaurant
 
 app = create_app()
 migrate = Migrate(app, db)
+
+
+@app.route('/')
+def index():
+    return render_template('src/index.html')
 
 
 @app.shell_context_processor
