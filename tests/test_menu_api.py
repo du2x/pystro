@@ -6,11 +6,10 @@ import unittest
 from flask import json
 from flask_testing import TestCase
 
-from application import create_app
-from application.database import db
-from application.config import TestConfig
-from application import init_api_data
-from application.restaurants import register_restaurants_blueprints
+from api import create_app, init_api_data
+from api.database import db
+from api.config import TestConfig
+from api.restaurants import register_restaurants_blueprints
 
 
 class ItemModelCase(TestCase):

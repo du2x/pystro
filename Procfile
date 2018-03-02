@@ -1,2 +1,2 @@
-web: gunicorn "pystro:create_app(pconfig='application.config.HerokuConfig')"
+web: gunicorn "pystro:create_app(pconfig='api.config.HerokuConfig')"
 

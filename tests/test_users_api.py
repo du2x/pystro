@@ -8,9 +8,9 @@ import jwt
 from flask import json, current_app
 from flask_testing import TestCase
 
-from application.database import db
-from application import create_app
-from application.config import TestConfig
+from api.database import db
+from api import create_app
+from api.config import TestConfig
 
 
 class UserModelCase(TestCase):

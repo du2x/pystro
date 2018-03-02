@@ -2,11 +2,11 @@
 from flask import render_template
 from flask_migrate import Migrate, upgrade
 
-from application import create_app
-from application.database import db
-from application import init_api_data
-from application.models.user import User
-from application.models.restaurant import Restaurant
+from api import create_app
+from api.database import db
+from api import init_api_data
+from api.models.user import User
+from api.models.restaurant import Restaurant
 
 
 app = create_app()

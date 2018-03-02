@@ -3,12 +3,12 @@ import unittest
 from flask_testing import TestCase
 from sqlalchemy.exc import IntegrityError
 
-from application.models.user import User
-from application.models.menu import Item
-from application.models.order import Order, OrderItem
-from application.database import db
-from application import create_app
-from application.config import TestConfig
+from api.models.user import User
+from api.models.menu import Item
+from api.models.order import Order, OrderItem
+from api.database import db
+from api import create_app
+from api.config import TestConfig
 
 
 class UserModelCase(TestCase):

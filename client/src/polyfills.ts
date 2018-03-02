@@ -4,7 +4,7 @@
  *
  * This file is divided into 2 sections:
  *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
- *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
+ *   2. api imports. Files imported after ZoneJS that should be loaded before your main
  *      file.
  *
  * The current setup is for so-called "evergreen" browsers; the last versions of browsers that
@@ -75,5 +75,5 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 
 /***************************************************************************************************
- * APPLICATION IMPORTS
+ * api IMPORTS
  */
