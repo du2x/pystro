@@ -31,7 +31,7 @@ class RestaurantModelCase(ApiTestCase):
 
     def test_restaurants_put(self):
         self.assertEquals(
-            self.client.put('restaurant/1' + str(self.init_data['RESTAURANT_ID']),
+            self.client.put('restaurant/' + str(self.init_data['RESTAURANT_ID']),
                             headers={'Authorization': 'JWT ' + self.john_token},
                             data=json.dumps(dict(
                               name='O Almazén',
