@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../models';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -7,8 +8,16 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
-  test: string = 'just a test';
+export class LoginComponent {
+  user: User = new User();  
   constructor(private auth: UserService) {}  
-  ngOnInit(): void { }  
+  onLogin(): void {
+    this.auth.login(this.user)
+    .then((user) => {
+      console.log(user.json());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 }

@@ -1,6 +1,7 @@
 """ boots up pystro app """
-from flask import render_template
+from flask import render_template, make_response, current_app
 from flask_migrate import Migrate, upgrade
+from flask_cors import CORS
 
 from api import create_app
 from api.database import db
@@ -9,19 +10,24 @@ from api.models.user import User
 from api.models.restaurant import Restaurant
 
 
-app = create_app()
-migrate = Migrate(app, db)
+app = create_app(debug=True)
+CORS(app)
 
 
-@app.route('/')
-def index():
-    return render_template('src/index.html')
+def setup_spa_route(app):
+    app.static_folder='../client'
+    app.template_folder='../client/src'
+    app.static_url_path=''
+
+    @app.route('/')
+    def index():
+        return make_response(render_template('index.html'))    
 
 
 @app.shell_context_processor
 def make_shell_context():
     """ initializes vars for flask shell """
-    return dict(db=db, User=User, Restaurant=Restaurant)
+    return dict(app=app, db=db, User=User, Restaurant=Restaurant)
 
 
 @app.cli.command()
