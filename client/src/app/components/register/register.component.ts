@@ -10,7 +10,7 @@ import { User } from '../../models';
 })
 export class RegisterComponent implements OnInit{
   user: User = new User();
-  constructor(private userService: UserService, private route: ActivatedRoute) {}
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {}
   ngOnInit(): void {    
     this.user.activation_token = this.route.snapshot.queryParams["token"];
     this.user.email = this.route.snapshot.queryParams["email"];
@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit{
     if(this.user.activation_token){
       this.userService.completeRegistration(this.user)
       .then((user) => {
-        console.log(user.json());
+        localStorage.setItem('token', user.json().access_token);
+        this.router.navigate(['']);
       })
       .catch((err) => {
         console.log(err);
