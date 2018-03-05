@@ -2,32 +2,17 @@
     Tests about users management and authentication
 """
 import unittest
-
+import json
 import jwt
 
-from flask import json, current_app
-from flask_testing import TestCase
+from flask import current_app
 
-from api.database import db
-from api import create_app
-from api.config import TestConfig
+from api.models.user import User
+
+from . import ApiTestCase
 
 
-class UserModelCase(TestCase):
-
-    TESTING = True
-
-    def create_app(self):
-        # pass in test configuration
-        app = create_app(TestConfig)
-        return app
-
-    def setUp(self):
-        db.create_all()
-
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+class UserModelCase(ApiTestCase):
 
     def test_users_post(self):
         self.assertEquals(
@@ -53,21 +38,21 @@ class UserModelCase(TestCase):
                             content_type='application/json').status_code, 200)
         self.assertEquals(
             self.client.post('/users', data=json.dumps(dict(
-                email='susan@gmail.com')),
+                email='juliet@gmail.com')),
                 content_type='application/json'
             ).status_code,
             201)
-        susan_token = jwt.encode(
-                {'user_email': 'susan@gmail.com'},
+        juliet_token = jwt.encode(
+                {'user_email': 'juliet@gmail.com'},
                 current_app.config['JWT_SECRET_KEY'],
                 current_app.config['JWT_ALG']).decode('utf-8')
         self.assertEquals(
             self.client.put('/users', data=json.dumps(dict(
-                email='susan@gmail.com',
-                name='susan',
+                email='juliet@gmail.com',
+                name='juliet',
                 phone='31 989121722',
                 password='123',
-                activation_token=str(susan_token))),
+                activation_token=str(juliet_token))),
                 content_type='application/json'
             ).status_code,
             200)
@@ -89,7 +74,7 @@ class UserModelCase(TestCase):
             .status_code, 200)
         self.assertEquals(
             self.client.post('/auth', data=json.dumps(dict(
-                username='susan@gmail.com',
+                username='juliet@gmail.com',
                 password='321')),  # wrong password!
                 content_type='application/json'
             ).status_code,
@@ -103,34 +88,36 @@ class UserModelCase(TestCase):
                                 username='joe@gmail.com',
                                 password='123')
                              ),
-                             content_type='application/json').data)
-        token = data['access_token']
+                             content_type='application/json').data.decode('utf-8'))
+        joe_token = data['access_token']
         self.assertEquals(
             self.client.get('/users',
-                            headers={'Authorization': 'JWT ' + token}
+                            headers={'Authorization': 'JWT ' + joe_token}
                             ).status_code, 200)  # joe is admin
         data = json.loads(
             self.client.post('/auth',
                              data=json.dumps(dict(
-                                username='susan@gmail.com',
+                                username='juliet@gmail.com',
                                 password='123')
                              ),
-                             content_type='application/json').data)
-        token = data['access_token']
+                             content_type='application/json').data.decode('utf-8'))
+        juliet_token = data['access_token']
         self.assertEquals(
             self.client.get('/users',
-                            headers={'Authorization': 'JWT ' + token})
-            .status_code, 403)  # susan is not manager
+                            headers={'Authorization': 'JWT ' + juliet_token})
+            .status_code, 403)  # juliet is not admin
+        john = User.find_by_email('joe@gmail.com')
         self.assertEquals(
-            self.client.put('/user/1',  # 1 is johns user id
-                            headers={'Authorization': 'JWT ' + token},
+            self.client.put('/user/' + str(john.id),
+                            headers={'Authorization': 'JWT ' + juliet_token},
                             data=json.dumps(dict(name='john')),
                             content_type='application/json')
-            .status_code, 403)  # susan is not manager and is not joe
+            .status_code, 403)  # juliet is not admin and is not joe            
+        juliet = User.find_by_email('juliet@gmail.com')
         self.assertEquals(
-            self.client.put('/user/2',  # 2 os susans user id
-                            headers={'Authorization': 'JWT ' + token},
-                            data=json.dumps(dict(name='susanah')),
+            self.client.put('/user/' + str(juliet.id),
+                            headers={'Authorization': 'JWT ' + juliet_token},
+                            data=json.dumps(dict(name='julyet')),
                             content_type='application/json')
             .status_code, 200)  # susan can edit herself
 

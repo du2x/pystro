@@ -21,7 +21,7 @@ def setup_spa_route(app):
 
     @app.route('/')
     def index():
-        return make_response(render_template('index.html'))    
+        return make_response(render_template('index.html'))
 
 
 @app.shell_context_processor
