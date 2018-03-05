@@ -10,9 +10,7 @@ export class UserService {
   constructor(private http: Http) {}
   login(user): Promise<any> {
     let url: string = `${this.BASE_URL}/auth`;
-    user.username = user.email;
-    user.email = undefined;
-    return this.http.post(url, user, {headers: this.headers}).toPromise();
+    return this.http.post(url, user.loginData(), {headers: this.headers}).toPromise();
   }
   register(user): Promise<any> {
     let url: string = `${this.BASE_URL}/users`;

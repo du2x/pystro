@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../../models';
 import { UserService } from '../../services/user.service';
 
@@ -10,11 +11,12 @@ import { UserService } from '../../services/user.service';
 
 export class LoginComponent {
   user: User = new User();  
-  constructor(private auth: UserService) {}  
+  constructor(private auth: UserService, private router: Router) {}  
   onLogin(): void {
     this.auth.login(this.user)
     .then((user) => {
-      console.log(user.json());
+      localStorage.setItem('token', user.json().access_token);
+      this.router.navigate(['']);
     })
     .catch((err) => {
       console.log(err);
