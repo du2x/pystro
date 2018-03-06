@@ -20,4 +20,12 @@ export class UserService {
     let url: string = `${this.BASE_URL}/users`;
     return this.http.put(url, user, {headers: this.headers}).toPromise();
   }    
+  requestResetPassword(user): Promise<any> {
+    let url: string = `${this.BASE_URL}/resetpassword`;
+    return this.http.put(url, {'email': user.email}, {headers: this.headers}).toPromise();
+  }      
+  resetPassword(user): Promise<any> {
+    let url: string = `${this.BASE_URL}/resetpassword`;
+    return this.http.post(url, user.resetPasswordData(), {headers: this.headers}).toPromise();
+  }        
 }
