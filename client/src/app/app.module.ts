@@ -5,17 +5,20 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { UserService } from './services/user.service'
+import { RestaurantService } from './services/restaurant.service'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }  
+  { path: 'resetpassword', component: ResetpasswordComponent },  
+  { path: 'register', component: RegisterComponent }    
 ];
 
 @NgModule({
@@ -25,7 +28,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    RestaurantsComponent
   ],
   imports: [
     BrowserModule,
