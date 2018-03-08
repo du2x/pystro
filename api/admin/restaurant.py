@@ -16,9 +16,9 @@ nameArg = reqparse.Argument(name='name', type=str,
                             required=True,
                             help='name of restaurant',
                             location='json')
-subdomainArg = reqparse.Argument(name='subdomain', type=str,
+cnameArg = reqparse.Argument(name='cname', type=str,
                                  required=True,
-                                 help='subdomain of restaurant',
+                                 help='canonical name of restaurant',
                                  location='json')                            
 phoneArg = reqparse.Argument(name='phone', type=str,
                              required=True,
@@ -52,7 +52,7 @@ class RestaurantsAPI(Resource):
     def post(self):
         """ creates a restaurant """
         self.reqparse.add_argument(nameArg)
-        self.reqparse.add_argument(subdomainArg)
+        self.reqparse.add_argument(cnameArg)
         self.reqparse.add_argument(phoneArg)
         self.reqparse.add_argument(addressArg)
         self.reqparse.add_argument(imgArg)

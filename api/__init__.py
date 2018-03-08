@@ -62,7 +62,7 @@ def init_api_data(app):
         db.session.add(u3)
         db.session.commit()
         db.session.flush()
-        rest = Restaurant(name='Almazen', subdomain='almazen')
+        rest = Restaurant(name='Almazen', cname='almazen')
         rest.managers.append(u3)
         db.session.add(rest)
         db.session.commit()
@@ -84,7 +84,7 @@ def init_api_data(app):
         db.session.commit()
         return {
             'RESTAURANT_ID': rest.id,
-            'RESTAURANT_SUBDOMAIN': rest.subdomain,
+            'RESTAURANT_CNAME': rest.cname,
             'ITEM_ID': i1.id,
             'SECTION_ID': s1.id,
             'USER_ADMIN_EMAIL': u1.email,

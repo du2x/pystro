@@ -17,7 +17,7 @@ restaurants_managers = db.Table('restaurants_managers',
 
 class Restaurant(BaseModel):
     name = db.Column(db.String(140), index=True, nullable=False)
-    subdomain = db.Column(db.String(50), unique=True, nullable=False)
+    cname = db.Column(db.String(50), unique=True, nullable=False)
     address = db.Column(db.String(140))
     phone = db.Column(db.String(20))
     image_url = db.Column(db.String(140))
@@ -29,11 +29,11 @@ class Restaurant(BaseModel):
     def serializable(self):
         return {'id': self.id, 'address': self.address,
                 'image_url': self.image_url, 'url': self.url,
-                'subdomain': self.subdomain, 'name': self.name}
+                'cname': self.cname, 'name': self.name}
 
     @classmethod
-    def find_by_subdomain(cls, subdomain):
-        result = cls.query.filter(cls.subdomain == subdomain)
+    def find_by_cname(cls, cname):
+        result = cls.query.filter(cls.cname == cname)
         if result.count() == 1:
             return result.first()
         return None

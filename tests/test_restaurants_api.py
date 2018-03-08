@@ -17,7 +17,7 @@ class RestaurantModelCase(ApiTestCase):
                              headers={'Authorization': 'JWT ' + self.john_token},
                              data=json.dumps(dict(
                                 name='Gaules',
-                                subdomain='gaules',
+                                cname='gaules',
                                 phone='31 99832171')),
                              content_type='application/json').status_code, 201)
         self.assertEquals(
@@ -25,7 +25,7 @@ class RestaurantModelCase(ApiTestCase):
                              headers={'Authorization': 'JWT ' + self.susan_token},
                              data=json.dumps(dict(
                                 name='Familia Paulista',
-                                subdomain='familia-paulista',
+                                cname='familia-paulista',
                                 phone='31 99832333')),
                              content_type='application/json').status_code, 403)
 

@@ -4,6 +4,6 @@ from api.models.restaurant import Restaurant
 
 
 def get_current_restaurant():
-    subdomain = request.path.split('/')[1]
-    rest = Restaurant.find_by_subdomain(subdomain)
+    cname = request.path.split('/')[1]
+    rest = Restaurant.find_by_cname(cname)
     return rest

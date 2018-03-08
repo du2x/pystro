@@ -14,10 +14,10 @@ from .orders import OrdersAPI
 
 
 def _register_restaurant_blueprint(app, restaurant):
-    api_bp = Blueprint(restaurant['subdomain'], 'pystro')
+    api_bp = Blueprint(restaurant['cname'], 'pystro')
     api = Api(api_bp)
     setup_restaurant_api_routes(api)
-    app.register_blueprint(api_bp, url_prefix='/' + restaurant['subdomain'])
+    app.register_blueprint(api_bp, url_prefix='/' + restaurant['cname'])
 
 
 def register_restaurants_blueprints(app):
