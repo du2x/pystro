@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import { User } from '../models';
-import { DevConfig } from '../config'
+import { config } from '../config'
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UserService {
-  private BASE_URL: string = DevConfig.BASE_URL;
+  private BASE_URL: string = config.BASE_URL;
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
   constructor(private http: Http) {}
   login(user): Promise<any> {
