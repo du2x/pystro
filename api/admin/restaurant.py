@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 
 from api.models.restaurant import Restaurant
 from api.database import db
-from api.auth import only_admin
+from api.auth import only_admin, authenticated_user
 from api.restaurants import register_restaurant
 
 
@@ -96,3 +96,10 @@ class RestaurantAPI(Resource):
         except IntegrityError as e:
             db.session.rollback()
             return "Integrity error: " + str(e), 500
+
+    @authenticated_user()
+    def get(self, id):
+        restaurant = Restaurant.find_by_id(id)
+        if not restaurant:
+            return 404
+        return restaurant.serializable(), 200

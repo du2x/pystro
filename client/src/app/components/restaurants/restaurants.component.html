@@ -1,6 +1,6 @@
 <h2>Restaurants</h2>
 <ul class="restaurants">
   <li *ngFor="let restaurant of restaurants">
-    <span class="badge">{{restaurant.id}}</span> {{restaurant.name}}
+    <span class="badge"><a href="restaurant/{{restaurant.cname}}">{{restaurant.name}}</a></span>
   </li>
 </ul>

@@ -15,12 +15,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
+import { RestaurantComponent } from './components/restaurant/restaurant.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },  
-  { path: 'register', component: RegisterComponent }    
+  { path: 'register', component: RegisterComponent } ,
+  { path: 'restaurant/:cname',      component: RestaurantComponent }    
 ];
 
 @NgModule({
@@ -31,7 +33,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     ResetpasswordComponent,
-    RestaurantsComponent
+    RestaurantsComponent,
+    RestaurantComponent
   ],
   imports: [
     BrowserModule,
