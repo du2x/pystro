@@ -1,3 +1,6 @@
-<p>
-  restaurants works!
-</p>
+<h2>Restaurants</h2>
+<ul class="restaurants">
+  <li *ngFor="let restaurant of restaurants">
+    <span class="badge">{{restaurant.id}}</span> {{restaurant.name}}
+  </li>
+</ul>

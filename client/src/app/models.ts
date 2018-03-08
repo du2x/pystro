@@ -24,7 +24,8 @@ export class User {
 
 }
 
-export class Restaurant {    
+export class Restaurant {
+    id: number;    
     name: string;
     cname: string;
 }

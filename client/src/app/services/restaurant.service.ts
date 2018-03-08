@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http'; 
 import { Restaurant } from '../models';
-import { DevConfig } from '../config'
-import 'rxjs/add/operator/toPromise';
+import { DevConfig } from '../config';
+import { Observable } from 'rxjs/Observable';
+import { catchError, map, tap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
-export class RestaurantService {
-  private BASE_URL: string = DevConfig.BASE_URL;
-  private headers: Headers = new Headers({'Content-Type': 'application/json'});
-  constructor(private http: Http) {}
+export class RestaurantService {  
+  private restaurantURL = DevConfig.BASE_URL+'/restaurants';
+  constructor(private http: HttpClient) {}
+  getRestaurants(): Observable<Restaurant[]> {
+    return this.http.get<Restaurant[]>(this.restaurantURL);
+  }
+
 }

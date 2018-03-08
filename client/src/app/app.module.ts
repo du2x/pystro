@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http'; 
+
 import { FormsModule } from '@angular/forms';
 
 import { UserService } from './services/user.service'
@@ -35,11 +37,12 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes
     )
   ],
-  providers: [UserService],
+  providers: [UserService, RestaurantService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
