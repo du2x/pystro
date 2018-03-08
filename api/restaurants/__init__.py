@@ -16,7 +16,7 @@ from .orders import OrdersAPI
 def _register_restaurant_blueprint(app, restaurant):
     api_bp = Blueprint(restaurant['subdomain'], 'pystro')
     api = Api(api_bp)
-    set_restaurant_api_routes(api)
+    setup_restaurant_api_routes(api)
     app.register_blueprint(api_bp, url_prefix='/' + restaurant['subdomain'])
 
 
@@ -32,7 +32,7 @@ def register_restaurant(app, restaurant_dict):
     _register_restaurant_blueprint(app, restaurant_dict)
 
 
-def set_restaurant_api_routes(api):
+def setup_restaurant_api_routes(api):
     api.add_resource(ItemsAPI, '/items', endpoint='items')
     api.add_resource(ItemAPI, '/item/<int:id>', endpoint='item')
     api.add_resource(SectionAPI, '/section/<int:id>', endpoint='section')

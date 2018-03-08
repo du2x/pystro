@@ -48,7 +48,7 @@ class UsersAPI(Resource):
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        super(UsersAPI, self).__init__()
+        super().__init__()
 
     def post(self):
         self.reqparse.add_argument(emailArg)

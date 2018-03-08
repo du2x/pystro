@@ -13,7 +13,8 @@ from api.config import defaultconfig
 from api.models.user import User
 from api.models.menu import Item, Section
 from api.models.restaurant import Restaurant
-from api.admin import set_admin_api_routes
+from api.admin import setup_admin_api_routes
+from api.public import setup_public_api_routes
 from api.restaurants import register_restaurants_blueprints
 
 
@@ -36,7 +37,8 @@ def create_app(pconfig=None, debug=False):
             db.session.rollback()
             db.session.remove()
     api = Api(app)
-    set_admin_api_routes(api)
+    setup_admin_api_routes(api)
+    setup_public_api_routes(api)
     JWT(app, authenticate, identity)
     register_restaurants_blueprints(app)
     return app
