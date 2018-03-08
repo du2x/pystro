@@ -23,3 +23,9 @@ export class User {
     }    
 
 }
+
+export class Restaurant {    
+    name: string;
+    cname: string;
+}
+
