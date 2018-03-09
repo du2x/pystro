@@ -11,13 +11,13 @@ import { RestaurantService } from '../../services/restaurant.service';
 })
 export class RestaurantComponent implements OnInit {
   private restaurant: Restaurant;
-  private restaurantId: string;
+  private restaurantCname: string;
   constructor(private restaurantService: RestaurantService, 
               private route: ActivatedRoute, 
               private router: Router) {}
   ngOnInit() {
-    this.restaurantId = this.route.snapshot.paramMap.get('cname');
-    this.restaurantService.getRestaurant(this.restaurantId)
+    this.restaurantCname = this.route.snapshot.paramMap.get('cname');
+    this.restaurantService.getRestaurant(this.restaurantCname)
       .subscribe(restaurant => this.restaurant = restaurant);
   }
 
