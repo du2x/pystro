@@ -1,0 +1,20 @@
+@startuml
+
+Admin -up-|> AuthenticatedUser
+Manager -up-|> AuthenticatedUser
+AuthenticatedUser -up-|> User
+
+
+User --> (Login)
+User --> (Reset Password)
+AuthenticatedUser --> (View Menu)
+AuthenticatedUser --> (Make Order)
+(Manage Order Items) <. (Make Order) : include
+(Make Order) .> (Payment) : include
+Admin --> (Manage Users) 
+Admin --> (Manage Restaurant): any restaurant
+(Manage Restaurant Menu) <. (Manage Restaurant) : include
+(Manage Restaurant) .> (Manage Restaurant Managers) : include
+Manager --> (Manage Restaurant): only my restaurant
+
+@enduml
