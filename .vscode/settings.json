@@ -15,5 +15,6 @@
         ".pytest_cache":true
     },
     "python.unitTest.pyTestEnabled": true,
-    "python.linting.flake8Enabled": true
+    "python.linting.flake8Enabled": false,
+    "python.linting.pylamaEnabled": false
 }

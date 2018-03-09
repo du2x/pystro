@@ -2,6 +2,7 @@
     <h1>Welcome</h1>
 </div>  
 <div *ngIf="token">
+  <a (click)="onLogout()" href="/">Logout</a>  
   <app-restaurants></app-restaurants>
 </div>
 <div *ngIf="!token">
