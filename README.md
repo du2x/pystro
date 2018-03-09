@@ -8,7 +8,7 @@ pystro is a **simple** and easy to use and to extend api for restaurant manageme
 
 pystro has basic restaurant business functionalities, expressed visually on following use case diagram:
 
-![use case diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/du2x/pystro/master/docs/basic_uc.txt)
+![use case diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/du2x/pystro/master/docs/basic_uc.uml)
 
 pystro is written in Flask, tries to follow principles SOLID, KISS and DRY and Flask specific best practices, taking, for example, [miguelgrinberg](https://github.com/miguelgrinberg) as one of the main references. We also follow pep8 style guide.
 
