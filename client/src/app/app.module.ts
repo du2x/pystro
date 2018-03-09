@@ -22,7 +22,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },  
   { path: 'register', component: RegisterComponent } ,
-  { path: 'restaurant/:id', component: RestaurantComponent }    
+  { path: 'restaurant/:cname', component: RestaurantComponent }    
 ];
 
 @NgModule({

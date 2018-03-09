@@ -2,7 +2,6 @@ import os
 from datetime import datetime
 
 from flask import Flask
-from flask_restful import Api
 from flask_jwt import JWT
 from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlalchemy.orm.exc import ObjectDeletedError
@@ -36,9 +35,8 @@ def create_app(pconfig=None, debug=False):
         except (OperationalError, ObjectDeletedError):
             db.session.rollback()
             db.session.remove()
-    api = Api(app)
-    setup_admin_api_routes(api)
-    setup_public_api_routes(api)
+    setup_admin_api_routes(app)
+    setup_public_api_routes(app)
     JWT(app, authenticate, identity)
     register_restaurants_blueprints(app)
     return app

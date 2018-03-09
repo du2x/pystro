@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 
 from api.models.restaurant import Restaurant
 from api.database import db
-from api.auth import only_admin, authenticated_user
+from api.auth import only_admin
 from api.restaurants import register_restaurant
 
 
@@ -45,9 +45,6 @@ class RestaurantsAPI(Resource):
         self.reqparse = reqparse.RequestParser()
         super(RestaurantsAPI, self).__init__()
 
-    def get(self):
-        return Restaurant.find_all()
-
     @only_admin()
     def post(self):
         """ creates a restaurant """
@@ -64,9 +61,9 @@ class RestaurantsAPI(Resource):
                 setattr(restaurant, key, data[key])
             register_restaurant(current_app, data)
             return restaurant.serializable(), 201
-        except IntegrityError as e:
+        except IntegrityError as err:
             db.session.rollback()
-            return "Integrity error: " + str(e), 500
+            return "Integrity error: " + str(err), 500
 
 
 class RestaurantAPI(Resource):
@@ -96,10 +93,3 @@ class RestaurantAPI(Resource):
         except IntegrityError as e:
             db.session.rollback()
             return "Integrity error: " + str(e), 500
-
-    @authenticated_user()
-    def get(self, id):
-        restaurant = Restaurant.find_by_id(id)
-        if not restaurant:
-            return 404
-        return restaurant.serializable(), 200

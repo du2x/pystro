@@ -16,7 +16,7 @@ export class RestaurantComponent implements OnInit {
               private route: ActivatedRoute, 
               private router: Router) {}
   ngOnInit() {
-    this.restaurantId = this.route.snapshot.paramMap.get('id');
+    this.restaurantId = this.route.snapshot.paramMap.get('cname');
     this.restaurantService.getRestaurant(this.restaurantId)
       .subscribe(restaurant => this.restaurant = restaurant);
   }
