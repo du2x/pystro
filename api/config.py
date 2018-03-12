@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -8,12 +9,14 @@ class Config(object):
     CSRF_ENABLED = True
     JWT_SECRET_KEY = 'super-secret'
     JWT_ALG = 'HS256'
+    JWT_EXPIRATION_DELTA = timedelta(seconds=3600) # one hour
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = 'localhost'
     MAIL_PORT = 8025
     MAIL_USERNAME = None
     MAIL_PASSWORD = None    
-    MAIL_SENDER = 'support@pystro.com'
+    MAIL_SENDER = 'support@pystro.com'        
+    
 
 
 class DevelopmentConfig(Config):

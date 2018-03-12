@@ -90,6 +90,6 @@ class RestaurantAPI(Resource):
             db.session.add(restaurant)
             db.session.commit()
             return restaurant.serializable(), 200
-        except IntegrityError as e:
+        except IntegrityError as err:
             db.session.rollback()
-            return "Integrity error: " + str(e), 500
+            return "Integrity error: " + str(err), 500

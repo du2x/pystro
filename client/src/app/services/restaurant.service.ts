@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
-import { Restaurant } from '../models';
+import { Restaurant, Section } from '../models';
 import { config } from '../config';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,4 +16,8 @@ export class RestaurantService {
   getRestaurant(cname: string): Observable<Restaurant> {
     return this.http.get<Restaurant>(config.BASE_URL+'/restaurant/'+cname, {headers: this.headers});
   }
+  getMenu(cname: string): Observable<Section[]> {
+    return this.http.get<Section[]>(config.BASE_URL+'/'+cname+'/menu', {headers: this.headers});
+  }
+  
 }

@@ -30,3 +30,13 @@ export class Restaurant {
     cname: string;
 }
 
+export class Item {
+    id: number;    
+    title: string;    
+    price: number;
+}
+
+export class Section {
+    title: string;
+    items: Item[];    
+}
