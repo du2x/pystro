@@ -1,9 +1,6 @@
 @startuml
 !pragma revision 89
 
-title Models - Class Diagram
-
-
 class Order 
 class Item
 class Section
