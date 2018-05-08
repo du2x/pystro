@@ -15,8 +15,8 @@ CORS(app)
 
 
 def setup_spa_route(app):
-    app.static_folder='../client'
-    app.template_folder='../client/src'
+    app.static_folder='../smartlunch-client'
+    app.template_folder='../smartlunch-client/src'
     app.static_url_path=''
 
     @app.route('/')

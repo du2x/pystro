@@ -85,25 +85,25 @@ class UsersAPI(Resource):
                                 current_app.config['JWT_SECRET_KEY'],
                                 current_app.config['JWT_ALGORITHM']))
             if not user:
-                return "User not created yet.", 402
+                return "User not created yet.", 400
             if not user.is_activated():
                 if 'activation_token' not in data.keys() or \
                         not data['activation_token']:
                     return 'token not sent.', 401
                 if not user.activate(data['activation_token']):
-                    return 'token is invalid.', 403
+                    return 'token '+ data['activation_token'] +' is invalid.', 403
             password = data['password']
             del(data['password'])
             del(data['activation_token'])
             for key in data.keys():
                 setattr(user, key, data[key])
-            user.set_password(password)
+            user.set_password(password)            
             db.session.add(user)
             db.session.commit()
         except IntegrityError as e:
             db.session.rollback()
             return "Integrity error: " + str(e), 400
-        return "User " + user.email + " has been saved", 200
+        return user.serializable(), 200
 
     @only_admin()
     def get(self):
